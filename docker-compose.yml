@@ -6,7 +6,7 @@ webapp:
   environment:
     - APP_ENV=local
     - VIRTUAL_HOST=http://project.local
-    - WEB_DOCUMENT_ROOT=/app/public/ #or app/public for symfony3
+    - WEB_DOCUMENT_ROOT=/app/ #or app/public for symfony3
   restart: on-failure:5
   ports:
     - 127.0.0.1:8001:80
