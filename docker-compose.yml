@@ -1,0 +1,28 @@
+webapp:
+  image: webdevops/php-nginx:ubuntu-16.04
+  volumes:
+    - ./project/:/app/
+  working_dir: /app/
+  environment:
+    - APP_ENV=local
+    - VIRTUAL_HOST=http://project.local
+    - WEB_DOCUMENT_ROOT=/app/public/ #or app/public for symfony3
+  restart: on-failure:5
+  ports:
+    - 127.0.0.1:8001:80
+  links:
+    - mysql
+mysql:
+  image: mysql:latest
+  volumes:
+    - ./db/:/var/lib/mysql/
+  environment:
+    - MYSQL_ROOT_PASSWORD=root
+    - MYSQL_DATABASE=example
+    - MYSQL_USER=admin
+    - MYSQL_PASSWORD:admin
+  ports:
+    - 127.0.0.1:8000:3306
+  restart: on-failure:5
+  log_opt:
+    max-size: 10k
